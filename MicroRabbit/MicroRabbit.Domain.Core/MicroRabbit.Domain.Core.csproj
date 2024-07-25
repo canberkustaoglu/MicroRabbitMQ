@@ -7,10 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Bus\" />
-    <Folder Include="Commands\" />
-    <Folder Include="Events\" />
-    <Folder Include="ads\" />
+    <PackageReference Include="MediatR" Version="12.4.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.28.0" />
+    <PackageReference Include="NUnit" Version="4.1.0" />
   </ItemGroup>
 
 </Project>
