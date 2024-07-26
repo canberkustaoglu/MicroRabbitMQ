@@ -128,4 +128,4 @@ namespace MicroRabbit.Infra.Bus
             }
         }
     }
-}
+}   
