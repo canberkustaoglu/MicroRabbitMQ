@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-
+/*
 // Add services to the container.
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
-
+*/
 //Add services to the container
 
 builder.Services.AddControllers();
