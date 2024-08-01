@@ -1,21 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 using MicroRabbit.Transfer.Domain.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace MicroRabbit.Transfer.Data.Context
 {
-    public class TransferDbContext : Microsoft.EntityFrameworkCore.DbContext
+    public class TransferDbContext : DbContext
     {
-        public TransferDbContext(DbContextOptions options) : base(options)
-        { 
-
+        public TransferDbContext(DbContextOptions<TransferDbContext> options) : base(options)
+        {
         }
-        public Microsoft.EntityFrameworkCore.DbSet<TransferLog> TransferLogs { get; set; }
+
+        public DbSet<TransferLog> TransferLogs { get; set; }
+        // Diğer DbSet tanımlamaları buraya eklenebilir.
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<TransferLog>(entity =>
+            {
+                entity.Property(e => e.TransferAmount)
+                      .HasColumnType("decimal(18,2)"); // TransferAmount property'sinin veri türünü "decimal(18,2)" olarak ayarlar.
+
+                // Diğer konfigürasyonlar buraya eklenebilir.
+            });
+        }
     }
 }
