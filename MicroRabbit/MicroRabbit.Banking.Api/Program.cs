@@ -3,16 +3,13 @@ using MicroRabbit.Infra.IoC;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-var builder = WebApplication.CreateBuilder(args);
-/*
-// Add services to the container.
-builder.Services.AddRazorPages();
 
-var app = builder.Build();
-*/
-//Add services to the container
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
 
 builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -32,17 +29,12 @@ DependencyContainer.RegisterServices(builder.Services);
 
 var app = builder.Build();
 
-
-
 // Configure the HTTP request pipeline.
-/*
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
-*/
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>
@@ -50,44 +42,10 @@ app.UseSwaggerUI(c =>
     c.SwaggerEndpoint("v1/swagger.json", "Banking Microservice V1");
 });
 
-
-
 app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
 
 app.UseAuthorization();
 
 app.MapControllers();
-//app.MapRazorPages();
-
 
 app.Run();
-//tüm satýrlarý commente aldým gerekirse ctrl k u yapýp çözersin
-/*
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-
-namespace MicroRabbit.Banking.Api
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateWebHostBuilder(args).Build().Run();
-        }
-
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
-    }
-}
-*/
