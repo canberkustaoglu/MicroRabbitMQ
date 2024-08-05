@@ -10,7 +10,6 @@ namespace MicroRabbit.Transfer.Data.Context
         }
 
         public DbSet<TransferLog> TransferLogs { get; set; }
-        // Diğer DbSet tanımlamaları buraya eklenebilir.
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

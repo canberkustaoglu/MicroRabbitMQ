@@ -39,7 +39,8 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("v1/swagger.json", "Banking Microservice V1");
+    //c.SwaggerEndpoint("v1/swagger.json", "Banking Microservice V1");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Banking Microservice V1"); //öneri üzerine deðiþtirildi gerekirse deðiþtirirsin eskisi üst satýrda
 });
 
 app.UseHttpsRedirection();
