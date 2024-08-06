@@ -2,7 +2,10 @@ using MicroRabbit.Transfer.Data.Context;
 using MicroRabbit.Infra.IoC;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-
+using MicroRabbit.Domain.Core.Bus;
+using MicroRabbit.Banking.Domain.Events;
+using MicroRabbit.Transfer.Domain.Events;
+using MicroRabbit.Transfer.Domain.EventHandlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,11 +45,20 @@ app.UseSwaggerUI(c =>
     //c.SwaggerEndpoint("v1/swagger.json", "Transfer Microservice V1");
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Transfer Microservice V1");  //öneri üzerine deðiþtirildi gerekirse deðiþtirirsin eskisi üst satýrda
 });
+//49 - 55 arasýný silebilirsin çok saçma biþey ekletti adam
+ConfigureEventBus(app);
+
+void ConfigureEventBus(IApplicationBuilder app)
+{
+    var EventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+    EventBus.Subscribe<MicroRabbit.Transfer.Domain.Events.TransferCreatedEvent, TransferEventHandler>();
+}
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
 
 app.Run();

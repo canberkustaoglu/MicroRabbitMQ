@@ -12,10 +12,13 @@ using MicroRabbit.Transfer.Application.Interfaces;
 using MicroRabbit.Transfer.Application.Services;
 using MicroRabbit.Transfer.Data.Context;
 using MicroRabbit.Transfer.Data.Repository;
-using MicroRabbit.Transfer.Domain.CommandHandlers;
-using MicroRabbit.Transfer.Domain.Commands;
+using MicroRabbit.Transfer.Domain.EventHandlers;
+using MicroRabbit.Transfer.Domain.Events;
 using MicroRabbit.Transfer.Domain.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace MicroRabbit.Infra.IoC
 {
@@ -26,6 +29,9 @@ namespace MicroRabbit.Infra.IoC
             //Domain Bus
             services.AddTransient<IEventBus, RabbitMQBus>();
 
+            //Domain Events
+            services.AddTransient<IEventHandler<TransferCreatedEvent>, TransferEventHandler>();
+
             //Domain Banking Commands
             services.AddTransient<IRequestHandler<CreateTransferCommand, bool>, TransferCommandHandler>();
 
@@ -35,12 +41,10 @@ namespace MicroRabbit.Infra.IoC
 
             //Data
             services.AddTransient<IAccountRepository, AccountRepository>();
-            //services.AddTransient<BankingDbContext>();
-            //services.AddScoped<BankingDbContext>(); //bu şekilde bir değişiklik önerisi üzerine değiştiriyorum eski satır yukarıda
+            services.AddTransient<BankingDbContext>();
 
             services.AddTransient<ITransferRepository, TransferRepository>();
-            //services.AddTransient<TransferDbContext>();
-            //services.AddScoped<TransferDbContext>(); //bu şekilde bir değişiklik önerisi üzerine değiştiriyorum eski satır yukarıda
+            services.AddTransient<TransferDbContext>();
         }
     }
 }
